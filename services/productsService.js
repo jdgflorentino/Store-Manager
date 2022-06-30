@@ -6,11 +6,16 @@ const getAll = async () => {
 };
 
 const getById = async (id) => { 
-  const [product] = await model.getById(id);
+  const product = await model.getById(id);
   if (!product) {
     throw new Error('Product not found');
   }
   return product;
 };
 
-module.exports = { getAll, getById };
+const create = async (newProduct) => { 
+  const product = await model.create(newProduct);
+  return product;
+};
+
+module.exports = { getAll, getById, create };

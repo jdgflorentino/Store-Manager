@@ -15,4 +15,15 @@ const getById = async (id) => {
   return product;
 };
 
-module.exports = { getAll, getById };
+// Função responsável por inserir um novo produto no banco de dados
+
+const create = async (newProduct) => {
+  const { name } = newProduct;
+  const [product] = await connection.execute(
+    'INSERT INTO StoreManager.products (name) VALUES (?)',
+    [name],
+  );
+  return product;
+};
+
+module.exports = { getAll, getById, create };

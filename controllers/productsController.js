@@ -13,6 +13,7 @@ const getById = async (req, res) => {
   const { id } = req.params;
   try {
     const product = await service.getById(id);
+    console.log(product);
     return res.status(200).json(product);
   } catch (error) {
     return res.status(404).json({ message: error.message });
@@ -24,7 +25,6 @@ const create = async (req, res) => {
   try {
     const newProduct = { name };
     const { insertId: id } = await service.create(newProduct);
-    console.log({ id, name });
     return res.status(201).json({ id, name });
   } catch (error) {
     return res.status(409).json({ message: error.message });

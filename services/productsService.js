@@ -6,7 +6,7 @@ const getAll = async () => {
 };
 
 const getById = async (id) => { 
-  const product = await model.getById(id);
+  const [product] = await model.getById(id);
   if (!product) {
     throw new Error('Product not found');
   }

@@ -18,10 +18,10 @@ const getById = async (id) => {
 // Função responsável por inserir um novo produto no banco de dados
 
 const create = async (newProduct) => {
-  const { name } = newProduct;
+  const { name, quantity } = newProduct;
   const [product] = await connection.execute(
-    'INSERT INTO StoreManager.products (name) VALUES (?)',
-    [name],
+    'INSERT INTO StoreManager.products (name, quantity) VALUES (?, ?)',
+    [name, quantity],
   );
   return product;
 };

@@ -23,7 +23,7 @@ const getById = async (req, res) => {
 const create = async (req, res) => {
   const { name, quantity } = req.body;
   try {
-    const newProduct = { name };
+    const newProduct = { name, quantity };
     const { insertId: id } = await service.create(newProduct);
     return res.status(201).json({ id, name, quantity });
   } catch (error) {

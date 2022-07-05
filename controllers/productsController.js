@@ -21,11 +21,11 @@ const getById = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  const { name, quantity } = req.body;
+  const { name } = req.body;
   try {
-    const newProduct = { name, quantity };
+    const newProduct = { name };
     const { insertId: id } = await service.create(newProduct);
-    return res.status(201).json({ id, name, quantity });
+    return res.status(201).json({ id, name });
   } catch (error) {
     return res.status(409).json({ message: error.message });
   }

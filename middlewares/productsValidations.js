@@ -1,3 +1,5 @@
+const model = require('../models/Products');
+
 const nameValidation = (req, res, next) => { 
   const { name } = req.body;
   if (!name) {
@@ -11,20 +13,16 @@ const nameValidation = (req, res, next) => {
   next();
 };
 
-const quantityValidation = (req, res, next) => {
-  const { quantity } = req.body;
-  if (!quantity) {
-    return res.status(400).json({ message: '"quantity" is required' });
-  }
-  if (quantity <= 0) {
-    return res
-      .status(422)
-      .json({ message: '"quantity" must be greater than or equal to 1' });
+const productIdValidation = async (req, res, next) => {
+  const sales = req.body;
+  const product = await Promise.all(sales.map(({ productId }) => model.getById(productId)));
+  if (product.some((p) => p.length === 0)) {
+    return res.status(404).json({ message: 'Product not found' });
   }
   next();
 };
 
 module.exports = {
   nameValidation,
-  quantityValidation,
+  productIdValidation,
 };

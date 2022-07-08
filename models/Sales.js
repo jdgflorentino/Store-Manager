@@ -2,13 +2,12 @@ const connection = require('./connection');
 
 const getById = async (id) => {
   const [sale] = await connection.execute(
-    `SELECT sale_prod.sale_id as saleId, sale.date, 
-    sale_prod.product_id as productId, sale_prod.quantity
-    FROM StoreManager.sales sale
-    INNER JOIN StoreManager.sales_products sale_prod
-    ON sale.id = sale_prod.sale_id
+    `SELECT date, sp.product_id AS productId, sp.quantity
+    FROM StoreManager.sales AS sale
+    INNER JOIN StoreManager.sales_products AS sp
+    ON sale.id = sp.sale_id
     WHERE sale.id = ?
-    ORDER BY sale_prod.product_id;`,
+    ORDER BY sp.product_id ASC;`,
     [id],
   );
   return sale;
@@ -16,12 +15,12 @@ const getById = async (id) => {
 
 const getAll = async () => { 
   const [sales] = await connection.execute(
-    `SELECT sale_prod.sale_id as saleId, sale.date, 
-    sale_prod.product_id as productId, sale_prod.quantity
-    FROM StoreManager.sales sale
-    INNER JOIN StoreManager.sales_products sale_prod
-    ON sale.id = sale_prod.sale_id;
-    ORDER BY sale_prod.sale_id, sale_prod.product_id;`,
+    `SELECT sp.sale_id as saleId, date, 
+    sp.product_id as productId, sp.quantity
+    FROM StoreManager.sales AS sale
+    INNER JOIN StoreManager.sales_products AS sp
+    ON sale.id = sp.sale_id
+    ORDER BY sp.sale_id ASC`,
   );
   return sales;
 };

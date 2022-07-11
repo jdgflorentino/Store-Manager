@@ -31,4 +31,15 @@ const create = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getById, create };
+const update = async (req, res) => {
+  const { name } = req.body;
+  const { id } = req.params;
+  const newProduct = { name, id };
+  const result = await service.update(newProduct);
+  if (result[0].affectedRows === 0) {
+    return res.status(404).json({ message: 'Product not found' });
+  }
+  return res.status(200).json({ id, name });
+};
+
+module.exports = { getAll, getById, create, update };

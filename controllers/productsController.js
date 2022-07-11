@@ -41,7 +41,7 @@ const update = async (req, res) => {
   return res.status(200).json({ id, name });
 };
 
-const deleteById = async (req, res) => { 
+const deleteByID = async (req, res) => { 
   const { id } = req.params;
   const result = await service.deleteByID(id);
   if (result.affectedRows === 0) {
@@ -50,4 +50,4 @@ const deleteById = async (req, res) => {
   return res.status(204).end();
 };
 
-module.exports = { getAll, getById, create, update, deleteById };
+module.exports = { getAll, getById, create, update, deleteByID };

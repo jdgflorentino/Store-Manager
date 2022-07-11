@@ -1,11 +1,10 @@
-const bodyParser = require('body-parser');
 const express = require('express');
 
 const app = express();
 
 const routes = require('./routes');
 
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(routes);
 
 // não remova esse endpoint, é para o avaliador funcionar

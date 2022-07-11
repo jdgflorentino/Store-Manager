@@ -13,7 +13,6 @@ const getById = async (req, res) => {
   const { id } = req.params;
   try {
     const product = await service.getById(id);
-    console.log(product);
     return res.status(200).json(product);
   } catch (error) {
     return res.status(404).json({ message: error.message });
@@ -42,4 +41,13 @@ const update = async (req, res) => {
   return res.status(200).json({ id, name });
 };
 
-module.exports = { getAll, getById, create, update };
+const deleteById = async (req, res) => { 
+  const { id } = req.params;
+  const result = await service.deleteByID(id);
+  if (result.affectedRows === 0) {
+    return res.status(404).json({ message: 'Product not found' });
+  }
+  return res.status(204).end();
+};
+
+module.exports = { getAll, getById, create, update, deleteById };
